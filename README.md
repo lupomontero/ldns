@@ -3,7 +3,7 @@
 Local `dns` server for development.
 
 This basically allows you to have wildcard subdomains on your local machine,
-which /etc/hosts doesn't allow.
+which `/etc/hosts` doesn't allow.
 
 ## Installation
 
@@ -44,14 +44,13 @@ By default the following zones are used.
 }
 ```
 
-These are based on my own use case, where I have a a proxy running on
-my machine and a docker virtual machine. With the default zones the
-`dev` domain (and all its subdomains, ie: `app1.dev`, `app2.dev`, ...)
-will resolve to `127.0.0.1` and the `docker` domain and all its
-subdomains resolve to `192.168.59.103`.
+These are based on my own use case, where I have a a proxy running on my machine
+and a docker virtual machine. With the default zones the `dev` domain (and all
+its subdomains, ie: `app1.dev`, `app2.dev`, ...) will resolve to `127.0.0.1` and
+the `docker` domain and all its subdomains resolve to `192.168.59.103`.
 
-You can also configure records for subdomains. In the example below
-`vm-1.vms` and `vm-2.vms` resolve to two different IP addresses.
+You can also configure records for subdomains. In the example below `vm-1.vms`
+and `vm-2.vms` resolve to two different IP addresses.
 
 ```json
 {
@@ -101,3 +100,25 @@ Otherwise you can specify a higher port number via command line arguments.
 ➜ ldns --port 15353 | bunyan
 ➜ ldns --port 15353 --debug | bunyan
 ```
+
+## License (MIT)
+
+Copyright (c) 2015 Lupo Montero
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+

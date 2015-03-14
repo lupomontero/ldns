@@ -1,6 +1,11 @@
 {
   "name": "ldns",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:lupomontero/ldns.git"
+  },
+  "license": "MIT",
   "main": "index.js",
   "bin": {
     "ldns": "./bin/cli.js"
