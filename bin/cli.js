@@ -24,6 +24,8 @@ if (argv.h || argv.help) {
     'Options:',
     '',
     '--port           Port to bind on.',
+    '--zones          Path to JSON file with zones info.',
+    '--debug          Switch logging level to debug.',
     '-h, --help       Show this help.',
     '-v, --version    Show ' + pkg.name + ' version.',
     ''
@@ -48,7 +50,7 @@ server.on('error', function (err, buff, req, res) {
 });
 
 server.on('listening', function (config) {
-  log.info('DNS server listening on port' + config.port);
+  log.info('DNS server listening on port ' + config.port);
   log.debug({ config: config });
 });
 
