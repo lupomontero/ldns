@@ -17,6 +17,7 @@
     "bunyan": "^1.3.4",
     "lodash": "^3.5.0",
     "minimist": "^1.1.1",
-    "native-dns": "^0.7.0"
+    "native-dns": "^0.7.0",
+    "psl": "^1.1.3"
   }
 }

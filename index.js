@@ -1,5 +1,6 @@
 var events = require('events');
 var dns = require('native-dns');
+var psl = require('psl');
 var _ = require('lodash');
 var noop = function () {};
 
@@ -56,7 +57,7 @@ function lookup(q, cb) {
   var req = dns.Request({
     question: q,
     server: { address: '8.8.8.8', port: 53, type: 'udp' },
-    timeout: 1000,
+    timeout: 2000,
   });
 
   function done(err, data) {
@@ -80,6 +81,10 @@ module.exports = function (options) {
   var server = dns.createServer();
   var ldns = new events.EventEmitter();
 
+  if (_.isString(config.zones)) {
+    config.zones = require(config.zones);
+  }
+
   ldns.serve = function (cb) {
     cb = cb || noop;
     server.serve(config.port, function () {
@@ -91,10 +96,21 @@ module.exports = function (options) {
   server.on('request', function (req, resp) {
     var q = req.question[0];
     var type = dns.consts.QTYPE_TO_NAME[q.type];
-    var parts = q.name.split('.');
-    var tld = parts.pop();
-    var subdomain = parts.join('.');
-    var zone = config.zones[tld] || {};
+    var parsed = psl.parse(q.name);
+    var tld = parsed.tld;
+    var sld = parsed.sld;
+    var domain = parsed.domain;
+    var subdomain = parsed.subdomain;
+
+    if (!domain) {
+      var parts = q.name.split('.');
+      tld = parts.pop();
+      sld = parts.pop();
+      domain = (sld) ? sld + '.' + tld : tld;
+      subdomain = parts.join('.');
+    }
+
+    var zone = config.zones[domain] || config.zones[tld] || {};
     var records = zone[subdomain] || zone['*'];
 
     if (records && !_.isArray(records)) { records = [ records ]; }
